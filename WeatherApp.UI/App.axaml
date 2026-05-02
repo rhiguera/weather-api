@@ -8,6 +8,6 @@
   </Application.Resources>
 
   <Application.Styles>
-    <!-- Minimal styles; can be extended with Fluent theme -->
+    <fluent:FluentTheme />
   </Application.Styles>
 </Application>

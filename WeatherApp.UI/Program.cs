@@ -1,4 +1,5 @@
 ﻿using Avalonia;
+using Avalonia.Logging;
 using Avalonia.ReactiveUI;
 
 namespace WeatherApp.UI
@@ -10,7 +11,7 @@ namespace WeatherApp.UI
 		public static AppBuilder BuildAvaloniaApp()
 			=> AppBuilder.Configure<App>()
 				.UsePlatformDetect()
-				.LogToTrace()
+				.LogToTrace(LogEventLevel.Verbose)
 				.UseReactiveUI();
 	}
 }
