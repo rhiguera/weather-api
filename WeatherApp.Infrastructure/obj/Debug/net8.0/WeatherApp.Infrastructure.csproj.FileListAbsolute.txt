@@ -1,0 +1,17 @@
+/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Infrastructure/bin/Debug/net8.0/WeatherApp.Infrastructure.deps.json
+/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Infrastructure/bin/Debug/net8.0/WeatherApp.Infrastructure.dll
+/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Infrastructure/bin/Debug/net8.0/WeatherApp.Infrastructure.pdb
+/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Infrastructure/bin/Debug/net8.0/WeatherApp.Application.dll
+/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Infrastructure/bin/Debug/net8.0/WeatherApp.Domain.dll
+/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Infrastructure/bin/Debug/net8.0/WeatherApp.Application.pdb
+/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Infrastructure/bin/Debug/net8.0/WeatherApp.Domain.pdb
+/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Infrastructure/obj/Debug/net8.0/WeatherApp.Infrastructure.csproj.AssemblyReference.cache
+/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Infrastructure/obj/Debug/net8.0/WeatherApp.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Infrastructure/obj/Debug/net8.0/WeatherApp.Infrastructure.AssemblyInfoInputs.cache
+/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Infrastructure/obj/Debug/net8.0/WeatherApp.Infrastructure.AssemblyInfo.cs
+/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Infrastructure/obj/Debug/net8.0/WeatherApp.Infrastructure.csproj.CoreCompileInputs.cache
+/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Infrastructure/obj/Debug/net8.0/WeatherApp.Infrastructure.csproj.CopyComplete
+/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Infrastructure/obj/Debug/net8.0/WeatherApp.Infrastructure.dll
+/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Infrastructure/obj/Debug/net8.0/refint/WeatherApp.Infrastructure.dll
+/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Infrastructure/obj/Debug/net8.0/WeatherApp.Infrastructure.pdb
+/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Infrastructure/obj/Debug/net8.0/ref/WeatherApp.Infrastructure.dll

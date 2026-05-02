@@ -1,0 +1,10 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="WeatherApp.UI.MainWindow"
+        Title="WeatherApp"
+        Width="480" Height="240">
+  <StackPanel Margin="12">
+    <TextBlock Text="WeatherApp (MVP)" FontSize="18"/>
+    <TextBlock Text="UI shell initialized."/>
+  </StackPanel>
+</Window>

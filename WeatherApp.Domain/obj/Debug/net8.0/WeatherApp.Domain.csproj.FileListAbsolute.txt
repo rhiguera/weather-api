@@ -1,0 +1,11 @@
+/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Domain/bin/Debug/net8.0/WeatherApp.Domain.deps.json
+/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Domain/bin/Debug/net8.0/WeatherApp.Domain.dll
+/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Domain/bin/Debug/net8.0/WeatherApp.Domain.pdb
+/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Domain/obj/Debug/net8.0/WeatherApp.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Domain/obj/Debug/net8.0/WeatherApp.Domain.AssemblyInfoInputs.cache
+/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Domain/obj/Debug/net8.0/WeatherApp.Domain.AssemblyInfo.cs
+/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Domain/obj/Debug/net8.0/WeatherApp.Domain.csproj.CoreCompileInputs.cache
+/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Domain/obj/Debug/net8.0/WeatherApp.Domain.dll
+/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Domain/obj/Debug/net8.0/refint/WeatherApp.Domain.dll
+/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Domain/obj/Debug/net8.0/WeatherApp.Domain.pdb
+/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Domain/obj/Debug/net8.0/ref/WeatherApp.Domain.dll

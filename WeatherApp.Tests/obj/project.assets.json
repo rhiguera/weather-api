@@ -1712,6 +1712,29 @@
         "build": {
           "build/netcoreapp3.1/xunit.runner.visualstudio.props": {}
         }
+      },
+      "WeatherApp.Application/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "WeatherApp.Domain": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/WeatherApp.Application.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/WeatherApp.Application.dll": {}
+        }
+      },
+      "WeatherApp.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/WeatherApp.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/WeatherApp.Domain.dll": {}
+        }
       }
     }
   },
@@ -5507,11 +5530,23 @@
         "xunit.runner.visualstudio.2.4.5.nupkg.sha512",
         "xunit.runner.visualstudio.nuspec"
       ]
+    },
+    "WeatherApp.Application/1.0.0": {
+      "type": "project",
+      "path": "../WeatherApp.Application/WeatherApp.Application.csproj",
+      "msbuildProject": "../WeatherApp.Application/WeatherApp.Application.csproj"
+    },
+    "WeatherApp.Domain/1.0.0": {
+      "type": "project",
+      "path": "../WeatherApp.Domain/WeatherApp.Domain.csproj",
+      "msbuildProject": "../WeatherApp.Domain/WeatherApp.Domain.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0": [
       "Microsoft.NET.Test.Sdk >= 17.6.0",
+      "WeatherApp.Application >= 1.0.0",
+      "WeatherApp.Domain >= 1.0.0",
       "coverlet.collector >= 6.0.0",
       "xunit >= 2.4.2",
       "xunit.runner.visualstudio >= 2.4.5"
@@ -5541,7 +5576,14 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Application/WeatherApp.Application.csproj": {
+              "projectPath": "/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Application/WeatherApp.Application.csproj"
+            },
+            "/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Domain/WeatherApp.Domain.csproj": {
+              "projectPath": "/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Domain/WeatherApp.Domain.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

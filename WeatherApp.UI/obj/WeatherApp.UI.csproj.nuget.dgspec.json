@@ -4,14 +4,71 @@
     "/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.UI/WeatherApp.UI.csproj": {}
   },
   "projects": {
-    "/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.UI/WeatherApp.UI.csproj": {
+    "/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Application/WeatherApp.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.UI/WeatherApp.UI.csproj",
-        "projectName": "WeatherApp.UI",
-        "projectPath": "/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.UI/WeatherApp.UI.csproj",
+        "projectUniqueName": "/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Application/WeatherApp.Application.csproj",
+        "projectName": "WeatherApp.Application",
+        "projectPath": "/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Application/WeatherApp.Application.csproj",
         "packagesPath": "/home/rhm/.nuget/packages/",
-        "outputPath": "/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.UI/obj/",
+        "outputPath": "/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Application/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/rhm/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Domain/WeatherApp.Domain.csproj": {
+                "projectPath": "/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Domain/WeatherApp.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.125/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Domain/WeatherApp.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Domain/WeatherApp.Domain.csproj",
+        "projectName": "WeatherApp.Domain",
+        "projectPath": "/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Domain/WeatherApp.Domain.csproj",
+        "packagesPath": "/home/rhm/.nuget/packages/",
+        "outputPath": "/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Domain/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/rhm/.nuget/NuGet/NuGet.Config"
@@ -37,6 +94,85 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.125/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.UI/WeatherApp.UI.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.UI/WeatherApp.UI.csproj",
+        "projectName": "WeatherApp.UI",
+        "projectPath": "/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.UI/WeatherApp.UI.csproj",
+        "packagesPath": "/home/rhm/.nuget/packages/",
+        "outputPath": "/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.UI/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/rhm/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Application/WeatherApp.Application.csproj": {
+                "projectPath": "/home/rhm/Desarrollo/Projects/weather-api/WeatherApp.Application/WeatherApp.Application.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Avalonia": {
+              "target": "Package",
+              "version": "[11.0.0-preview6, )"
+            },
+            "Avalonia.Desktop": {
+              "target": "Package",
+              "version": "[11.0.0-preview6, )"
+            },
+            "Avalonia.Diagnostics": {
+              "target": "Package",
+              "version": "[11.0.0-preview6, )"
+            },
+            "Avalonia.ReactiveUI": {
+              "target": "Package",
+              "version": "[11.0.0-preview6, )"
+            },
+            "CommunityToolkit.Mvvm": {
+              "target": "Package",
+              "version": "[8.2.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
