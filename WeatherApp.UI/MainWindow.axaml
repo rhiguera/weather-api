@@ -2,20 +2,21 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         x:Class="WeatherApp.UI.MainWindow"
         Title="WeatherApp"
-        Width="480" Height="240">
+        Width="480" Height="240"
+        Background="#1e1e1e">
   <StackPanel Margin="12" Spacing="8">
-    <TextBlock Text="WeatherApp (MVP)" FontSize="18"/>
+    <TextBlock Text="WeatherApp (MVP)" FontSize="18" Foreground="White"/>
 
     <StackPanel Orientation="Horizontal" Spacing="8">
-      <TextBox Width="240" Watermark="Enter city" Text="{Binding City, Mode=TwoWay}" IsEnabled="{Binding GetWeatherCommand.IsRunning, Converter={StaticResource InverseBool}}" />
-      <Button Content="Get Weather" Command="{Binding GetWeatherCommand}" IsEnabled="{Binding GetWeatherCommand.IsRunning, Converter={StaticResource InverseBool}}" IsDefault="True" />
+      <TextBox Width="240" Watermark="Enter city" Text="{Binding City, Mode=TwoWay}" IsEnabled="{Binding GetWeatherCommand.IsRunning, Converter={StaticResource InverseBool}}" Foreground="White" Background="#2b2b2b" />
+      <Button Content="Get Weather" Command="{Binding GetWeatherCommand}" IsEnabled="{Binding GetWeatherCommand.IsRunning, Converter={StaticResource InverseBool}}" IsDefault="True" Foreground="White" Background="#3a3a3a"/>
     </StackPanel>
 
-    <ProgressBar IsIndeterminate="True" IsVisible="{Binding GetWeatherCommand.IsRunning}" Height="6" Margin="0,6,0,6"/>
+    <ProgressBar IsIndeterminate="True" IsVisible="{Binding GetWeatherCommand.IsRunning}" Height="6" Margin="0,6,0,6" Background="#2b2b2b"/>
 
-    <TextBlock Text="Results:" FontWeight="Bold"/>
-    <TextBlock Text="{Binding TemperatureDisplay}"/>
-    <TextBlock Text="{Binding Description}"/>
-    <TextBlock Foreground="Red" Text="{Binding ErrorMessage}"/>
+    <TextBlock Text="Results:" FontWeight="Bold" Foreground="White"/>
+    <TextBlock Text="{Binding TemperatureDisplay}" Foreground="White"/>
+    <TextBlock Text="{Binding Description}" Foreground="White"/>
+    <TextBlock Foreground="#ff6666" Text="{Binding ErrorMessage}"/>
   </StackPanel>
 </Window>
