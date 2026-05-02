@@ -42,6 +42,18 @@ dotnet run --project WeatherApp.UI
   - Leer `API_KEY` desde variables de entorno o `appsettings.Development.json` (no comitear keys).
   - Registrar implementación real en DI reemplazando el stub.
 
+  ### OpenWeatherMap client & resilience
+
+  - Set environment variable `OPENWEATHER_API_KEY` to enable the real OpenWeatherMap client. If not set, the app falls back to a local stub.
+  - The HttpClient used for OpenWeatherMap is configured with Polly policies: retries (exponential backoff) and a timeout. Network errors and timeouts are surfaced to the UI as friendly error messages.
+
+  Example (Linux):
+
+  ```bash
+  export OPENWEATHER_API_KEY="your_api_key_here"
+  dotnet run --project WeatherApp.UI
+  ```
+
 ## Tests
 - Framework: `xUnit`.
 - Se añaden tests de unidades en `WeatherApp.Tests` para los casos de uso y ViewModels.

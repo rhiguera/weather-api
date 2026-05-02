@@ -15,13 +15,24 @@ namespace WeatherApp.Application.UseCases.GetWeather
 
         public async Task<GetWeatherResponse> HandleAsync(GetWeatherRequest request, CancellationToken cancellationToken = default)
         {
-            var weather = await _weatherService.GetWeatherByCityAsync(request.City, cancellationToken).ConfigureAwait(false);
-            if (weather is null)
+            try
             {
-                return new GetWeatherResponse(false, null, "City not found");
-            }
+                var weather = await _weatherService.GetWeatherByCityAsync(request.City, cancellationToken).ConfigureAwait(false);
+                if (weather is null)
+                {
+                    return new GetWeatherResponse(false, null, "City not found");
+                }
 
-            return new GetWeatherResponse(true, weather);
+                return new GetWeatherResponse(true, weather);
+            }
+            catch (OperationCanceledException)
+            {
+                return new GetWeatherResponse(false, null, "Request timed out");
+            }
+            catch (Exception ex)
+            {
+                return new GetWeatherResponse(false, null, "Network error: " + ex.Message);
+            }
         }
     }
 }
