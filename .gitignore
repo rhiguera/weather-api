@@ -1,0 +1,105 @@
+## Ignore build outputs
+**/bin/
+**/obj/
+
+# Rider/IDE
+.idea/
+
+# VS Code
+.vscode/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+
+# NuGet
+*.nupkg
+packages/
+.nuget/
+
+# Publish output
+publish/
+out/
+
+# Test results
+TestResults/
+*.trx
+coverage/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Dotnet user secrets and local settings
+secrets.json
+appsettings.Development.json
+local.settings.json
+
+# Generated resources (Avalonia)
+**/obj/**/Avalonia/resources/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Database files
+*.db
+
+# Tracked binary/artifact files
+*.dll
+*.pdb
+*.exe
+*.app
+*.msi
+*.so
+*.dylib
+
+# Native build artifacts
+**/native/**
+
+# Rider
+.idea/
+
+# VS Code
+.vscode/
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+
+# NuGet
+*.nupkg
+packages/
+.nuget/
+
+# Test results
+TestResults/
+*.trx
+coverage/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Dotnet user secrets and local settings
+secrets.json
+appsettings.Development.json
+local.settings.json
+
+# Temporary files
+*.tmp
+*.temp
+
+
+# Misc
+*.vsix
