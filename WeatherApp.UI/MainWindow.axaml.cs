@@ -7,13 +7,13 @@ namespace WeatherApp.UI
 {
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(ViewModels.MainWindowViewModel viewModel)
         {
             InitializeComponent();
 #if DEBUG
             this.AttachDevTools();
 #endif
-            DataContext = new MainWindowViewModel();
+            DataContext = viewModel;
         }
 
         private void InitializeComponent()
