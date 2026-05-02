@@ -1,5 +1,10 @@
 <Application xmlns="https://github.com/avaloniaui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:WeatherApp.UI.Converters">
+  <Application.Resources>
+    <local:InverseBooleanConverter x:Key="InverseBool" />
+  </Application.Resources>
+
   <Application.Styles>
     <!-- Minimal styles; can be extended with Fluent theme -->
   </Application.Styles>

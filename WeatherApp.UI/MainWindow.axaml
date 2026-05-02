@@ -7,9 +7,11 @@
     <TextBlock Text="WeatherApp (MVP)" FontSize="18"/>
 
     <StackPanel Orientation="Horizontal" Spacing="8">
-      <TextBox Width="240" Watermark="Enter city" Text="{Binding City, Mode=TwoWay}" />
-      <Button Content="Get Weather" Command="{Binding GetWeatherCommand}" />
+      <TextBox Width="240" Watermark="Enter city" Text="{Binding City, Mode=TwoWay}" IsEnabled="{Binding GetWeatherCommand.IsRunning, Converter={StaticResource InverseBool}}" />
+      <Button Content="Get Weather" Command="{Binding GetWeatherCommand}" IsEnabled="{Binding GetWeatherCommand.IsRunning, Converter={StaticResource InverseBool}}" IsDefault="True" />
     </StackPanel>
+
+    <ProgressBar IsIndeterminate="True" IsVisible="{Binding GetWeatherCommand.IsRunning}" Height="6" Margin="0,6,0,6"/>
 
     <TextBlock Text="Results:" FontWeight="Bold"/>
     <TextBlock Text="{Binding TemperatureDisplay}"/>

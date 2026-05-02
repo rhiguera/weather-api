@@ -55,3 +55,4 @@ dotnet run --project WeatherApp.UI
 2. Añadir tests para `GetWeatherUseCase`.
 3. Conectar ViewModel a use case y mostrar datos en UI.
 4. Reemplazar stub por implementación real con `HttpClient` y `Polly`.
+5. Mejoras UX implementadas: indicador de carga, deshabilitar controles durante peticiones, Enter para enviar.
