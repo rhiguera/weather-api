@@ -58,6 +58,44 @@ dotnet run --project WeatherApp.UI
 - Framework: `xUnit`.
 - Se añaden tests de unidades en `WeatherApp.Tests` para los casos de uso y ViewModels.
 
+## Run instructions (quick)
+
+Prerequisites:
+- .NET 8 SDK
+- Graphical session (X11/Wayland) for the UI on Linux
+
+Build & run UI:
+
+```bash
+dotnet build
+dotnet run --project WeatherApp.UI
+# For verbose Avalonia logs (useful when diagnosing a blank window):
+AVALONIA_LOG_LEVEL=debug dotnet run --project WeatherApp.UI
+```
+
+Optional: enable real OpenWeatherMap client (otherwise a stub is used):
+
+```bash
+export OPENWEATHER_API_KEY=your_api_key_here
+dotnet run --project WeatherApp.UI
+```
+
+Run tests:
+
+```bash
+dotnet test
+```
+
+Troubleshooting:
+- If the window appears blank, verify you're running in a desktop graphical session (not a headless SSH without X11/Wayland). Use `AVALONIA_LOG_LEVEL=debug` to capture runtime logs.
+- Already tracked build artifacts were removed and `.gitignore` updated. To remove other tracked artifacts if present:
+
+```bash
+git rm -r --cached **/bin **/obj || true
+git commit -m "chore: remove build artifacts from index"
+```
+
+
 ## Estrategia incremental y commits
 - Pequeños commits por responsabilidad (ver `untitled:plan-weatherAppPlan.prompt.md`).
 - Mensajes sugeridos: `feat:`, `fix:`, `test:` siguiendo Conventional Commits.
