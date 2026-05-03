@@ -17,12 +17,24 @@ namespace WeatherApp.Infrastructure.DependencyInjection
             if (!string.IsNullOrWhiteSpace(apiKey))
             {
                 // Configure HttpClient base address and a conservative timeout; retry is applied inside the typed client using Polly.
-                services.AddHttpClient<IWeatherService, OpenWeatherMapService>(client =>
+                services.AddHttpClient<OpenWeatherMapService>(client =>
                 {
                     client.BaseAddress = new Uri("https://api.openweathermap.org");
                     client.Timeout = TimeSpan.FromSeconds(15);
                 })
-                .AddTypedClient((httpClient, serviceProvider) => new OpenWeatherMapService(httpClient, apiKey));
+                .ConfigureHttpClient(client =>
+                {
+                    client.BaseAddress = new Uri("https://api.openweathermap.org");
+                    client.Timeout = TimeSpan.FromSeconds(15);
+                });
+
+                // Register OpenWeatherMapService as IWeatherService with apiKey
+                services.AddTransient<IWeatherService>(serviceProvider =>
+                {
+                    var httpClientFactory = serviceProvider.GetRequiredService<IHttpClientFactory>();
+                    var httpClient = httpClientFactory.CreateClient(nameof(OpenWeatherMapService));
+                    return new OpenWeatherMapService(httpClient, apiKey);
+                });
             }
             else
             {
