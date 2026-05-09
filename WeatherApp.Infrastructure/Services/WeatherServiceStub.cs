@@ -20,9 +20,9 @@ namespace WeatherApp.Infrastructure.Services
 
             return normalized switch
             {
-                "london" => Task.FromResult<Weather?>(new Weather("London", 12.3m, "broken clouds")),
-                "madrid" => Task.FromResult<Weather?>(new Weather("Madrid", 20.1m, "clear sky")),
-                "sydney" => Task.FromResult<Weather?>(new Weather("Sydney", 22.5m, "light rain")),
+                "london" => Task.FromResult<Weather?>(new Weather("London", 12.3m, "broken clouds", 72, 5.1m, "04d")),
+                "madrid" => Task.FromResult<Weather?>(new Weather("Madrid", 20.1m, "clear sky", 30, 2.5m, "01d")),
+                "sydney" => Task.FromResult<Weather?>(new Weather("Sydney", 22.5m, "light rain", 85, 6.2m, "10d")),
                 _ => Task.FromResult<Weather?>(null)
             };
         }

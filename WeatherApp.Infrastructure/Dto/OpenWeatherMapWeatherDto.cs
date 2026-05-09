@@ -12,17 +12,32 @@ namespace WeatherApp.Infrastructure.Dto
 
         [JsonPropertyName("weather")]
         public WeatherEntryDto[] Weather { get; set; } = System.Array.Empty<WeatherEntryDto>();
+
+        [JsonPropertyName("wind")]
+        public WindDto Wind { get; set; } = new WindDto();
     }
 
     public class MainDto
     {
         [JsonPropertyName("temp")]
         public decimal Temp { get; set; }
+
+        [JsonPropertyName("humidity")]
+        public int Humidity { get; set; }
     }
 
     public class WeatherEntryDto
     {
         [JsonPropertyName("description")]
         public string Description { get; set; } = string.Empty;
+
+        [JsonPropertyName("icon")]
+        public string Icon { get; set; } = string.Empty;
+    }
+
+    public class WindDto
+    {
+        [JsonPropertyName("speed")]
+        public decimal Speed { get; set; }
     }
 }

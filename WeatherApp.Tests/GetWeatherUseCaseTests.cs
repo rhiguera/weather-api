@@ -27,7 +27,7 @@ namespace WeatherApp.Tests
         [Fact]
         public async Task HandleAsync_ReturnsSuccess_WhenWeatherFound()
         {
-            var sample = new Weather("TestCity", 15.5m, "sunny");
+            var sample = new Weather("TestCity", 15.5m, "sunny", 50, 3.5m, "01d");
             var service = new FakeWeatherService(sample);
             var useCase = new GetWeatherUseCase(service);
 

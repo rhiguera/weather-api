@@ -19,7 +19,7 @@ namespace WeatherApp.Tests
             // Arrange
             var mockHttp = new MockHttpMessageHandler();
             mockHttp.When($"{BaseUrl}/data/2.5/weather*")
-                .Respond("application/json", "{ \"name\": \"London\", \"main\": { \"temp\": 15.5 }, \"weather\": [ { \"description\": \"cloudy\" } ] }");
+                .Respond("application/json", "{ \"name\": \"London\", \"main\": { \"temp\": 15.5, \"humidity\": 80 }, \"weather\": [ { \"description\": \"cloudy\", \"icon\": \"03d\" } ], \"wind\": { \"speed\": 5.5 } }");
 
             var client = mockHttp.ToHttpClient();
             client.BaseAddress = new Uri(BaseUrl);
@@ -33,6 +33,9 @@ namespace WeatherApp.Tests
             Assert.Equal("London", result!.City);
             Assert.Equal(15.5m, result.TemperatureCelsius);
             Assert.Equal("cloudy", result.Description);
+            Assert.Equal(80, result.Humidity);
+            Assert.Equal(5.5m, result.WindSpeed);
+            Assert.Equal("03d", result.IconCode);
         }
 
         [Fact]
@@ -62,10 +65,6 @@ namespace WeatherApp.Tests
             var service = new OpenWeatherMapService(client, ApiKey);
 
             // Act & Assert
-            // OpenWeatherMapService uses GetFromJsonAsync which throws on non-success by default? 
-            // Actually HttpClient.GetFromJsonAsync throws if status code is not success.
-            // And Polly policy handles HttpRequestException.
-            // After 3 retries, it should finally throw.
             await Assert.ThrowsAsync<HttpRequestException>(() => service.GetWeatherByCityAsync("London"));
         }
 
@@ -76,12 +75,12 @@ namespace WeatherApp.Tests
             var mockHttp = new MockHttpMessageHandler();
             
             // Fail twice, then succeed
-            var request = mockHttp.Expect($"{BaseUrl}/data/2.5/weather*")
-                .Respond(HttpStatusCode.InternalServerError);
             mockHttp.Expect($"{BaseUrl}/data/2.5/weather*")
                 .Respond(HttpStatusCode.InternalServerError);
             mockHttp.Expect($"{BaseUrl}/data/2.5/weather*")
-                .Respond("application/json", "{ \"name\": \"London\", \"main\": { \"temp\": 15.5 }, \"weather\": [ { \"description\": \"cloudy\" } ] }");
+                .Respond(HttpStatusCode.InternalServerError);
+            mockHttp.Expect($"{BaseUrl}/data/2.5/weather*")
+                .Respond("application/json", "{ \"name\": \"London\", \"main\": { \"temp\": 15.5, \"humidity\": 80 }, \"weather\": [ { \"description\": \"cloudy\", \"icon\": \"03d\" } ], \"wind\": { \"speed\": 5.5 } }");
 
             var client = mockHttp.ToHttpClient();
             client.BaseAddress = new Uri(BaseUrl);

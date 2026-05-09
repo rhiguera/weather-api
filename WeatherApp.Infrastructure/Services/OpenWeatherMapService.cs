@@ -36,8 +36,14 @@ namespace WeatherApp.Infrastructure.Services
                 var dto = await _retryPolicy.ExecuteAsync(() => _httpClient.GetFromJsonAsync<OpenWeatherMapWeatherDto>(url, cancellationToken)).ConfigureAwait(false);
                 if (dto is null) return null;
 
-                var desc = dto.Weather.Length > 0 ? dto.Weather[0].Description : string.Empty;
-                return new Weather(dto.Name, dto.Main.Temp, desc);
+                var weatherEntry = dto.Weather.Length > 0 ? dto.Weather[0] : new WeatherEntryDto();
+                return new Weather(
+                    dto.Name, 
+                    dto.Main.Temp, 
+                    weatherEntry.Description,
+                    dto.Main.Humidity,
+                    dto.Wind.Speed,
+                    weatherEntry.Icon);
             }
             catch (OperationCanceledException)
             {

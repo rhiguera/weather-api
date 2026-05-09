@@ -26,6 +26,15 @@ namespace WeatherApp.UI.ViewModels
         private string description = string.Empty;
 
         [ObservableProperty]
+        private string humidityDisplay = string.Empty;
+
+        [ObservableProperty]
+        private string windSpeedDisplay = string.Empty;
+
+        [ObservableProperty]
+        private string? iconUrl;
+
+        [ObservableProperty]
         private string errorMessage = string.Empty;
 
         public IAsyncRelayCommand GetWeatherCommand { get; }
@@ -35,6 +44,9 @@ namespace WeatherApp.UI.ViewModels
             ErrorMessage = string.Empty;
             TemperatureDisplay = string.Empty;
             Description = string.Empty;
+            HumidityDisplay = string.Empty;
+            WindSpeedDisplay = string.Empty;
+            IconUrl = null;
 
             if (string.IsNullOrWhiteSpace(City))
             {
@@ -54,6 +66,9 @@ namespace WeatherApp.UI.ViewModels
             var w = response.Weather!;
             TemperatureDisplay = $"{w.TemperatureCelsius} °C in {w.City}";
             Description = w.Description;
+            HumidityDisplay = $"Humidity: {w.Humidity}%";
+            WindSpeedDisplay = $"Wind: {w.WindSpeed} m/s";
+            IconUrl = w.IconUrl;
         }
     }
 }
