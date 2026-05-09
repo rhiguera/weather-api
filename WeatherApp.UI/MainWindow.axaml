@@ -3,8 +3,7 @@
         xmlns:conv="clr-namespace:WeatherApp.UI.Converters"
         x:Class="WeatherApp.UI.MainWindow"
         Title="WeatherApp"
-        Width="500" Height="400"
-        Background="White">
+        Width="500" Height="400">
         
   <Window.Resources>
     <conv:InverseBooleanConverter x:Key="InverseBool"/>
@@ -13,38 +12,43 @@
         
   <Grid RowDefinitions="Auto,Auto,Auto,Auto,*" ColumnDefinitions="*" Margin="12">
     
-    <!-- Title -->
-    <TextBlock Grid.Row="0" Text="WeatherApp - Get Weather" FontSize="20" FontWeight="Bold" Foreground="Black" Margin="0,0,0,8"/>
+    <!-- Header with Title and Theme Toggle -->
+    <Grid Grid.Row="0" ColumnDefinitions="*,Auto" Margin="0,0,0,8">
+      <TextBlock Grid.Column="0" Text="WeatherApp - Get Weather" FontSize="20" FontWeight="Bold" VerticalAlignment="Center"/>
+      <Button Grid.Column="1" Command="{Binding ToggleThemeCommand}" 
+              Padding="8,4" Background="Transparent" BorderThickness="0">
+        <Button.Content>
+            <TextBlock Text="{Binding IsDarkMode, Converter={x:Static conv:InverseBooleanConverter.ThemeIconConverter}}" FontSize="20"/>
+        </Button.Content>
+      </Button>
+    </Grid>
     
     <!-- Input Row -->
     <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="8" Margin="0,0,0,8">
       <TextBox x:Name="CityTextBox" Width="250" Watermark="Enter city name" 
                Text="{Binding City, Mode=TwoWay}" 
                IsEnabled="{Binding GetWeatherCommand.IsRunning, Converter={StaticResource InverseBool}}"
-               Foreground="Black" 
-               Background="White" 
                BorderThickness="2" 
-               BorderBrush="Black"
                Padding="8,6"/>
       
       <Button Width="120" Content="Get Weather" 
               Command="{Binding GetWeatherCommand}" 
               IsDefault="True"
               IsEnabled="{Binding GetWeatherCommand.IsRunning, Converter={StaticResource InverseBool}}"
-              Foreground="White" 
               Background="#0078d4" 
+              Foreground="White"
               FontWeight="Bold"
               Padding="8,6"/>
     </StackPanel>
     
     <!-- Progress Bar -->
     <ProgressBar Grid.Row="2" IsIndeterminate="True" IsVisible="{Binding GetWeatherCommand.IsRunning}" 
-                 Height="8" Margin="0,0,0,8" Background="#e0e0e0" Foreground="#0078d4"/>
+                 Height="8" Margin="0,0,0,8"/>
     
     <!-- Results Area -->
     <StackPanel Grid.Row="3" Spacing="10" IsVisible="{Binding TemperatureDisplay, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
-      <TextBlock Text="Weather Details:" FontWeight="Bold" Foreground="Black" FontSize="14"/>
-      <Border BorderBrush="#cccccc" BorderThickness="1" Background="#fdfdfd" Padding="12" CornerRadius="8" BoxShadow="0 2 4 0 #20000000">
+      <TextBlock Text="Weather Details:" FontWeight="Bold" FontSize="14"/>
+      <Border BorderBrush="{DynamicResource SystemBaseLowColor}" BorderThickness="1" Background="{DynamicResource SystemAltLowColor}" Padding="12" CornerRadius="8" BoxShadow="0 2 4 0 #20000000">
         <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto">
           
           <!-- Icon -->
@@ -54,19 +58,19 @@
           
           <!-- Main Info -->
           <StackPanel Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" Spacing="2">
-            <TextBlock Text="{Binding TemperatureDisplay}" Foreground="Black" FontSize="20" FontWeight="Bold"/>
-            <TextBlock Text="{Binding Description}" Foreground="#555555" FontSize="15" FontStyle="Italic"/>
+            <TextBlock Text="{Binding TemperatureDisplay}" FontSize="20" FontWeight="Bold"/>
+            <TextBlock Text="{Binding Description}" Opacity="0.7" FontSize="15" FontStyle="Italic"/>
           </StackPanel>
           
           <!-- Secondary Info -->
           <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" Spacing="20" Margin="0,8,0,0">
             <StackPanel Orientation="Horizontal" Spacing="4">
                <TextBlock Text="💧" VerticalAlignment="Center"/>
-               <TextBlock Text="{Binding HumidityDisplay}" Foreground="#333333" FontSize="13"/>
+               <TextBlock Text="{Binding HumidityDisplay}" FontSize="13"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Spacing="4">
                <TextBlock Text="💨" VerticalAlignment="Center"/>
-               <TextBlock Text="{Binding WindSpeedDisplay}" Foreground="#333333" FontSize="13"/>
+               <TextBlock Text="{Binding WindSpeedDisplay}" FontSize="13"/>
             </StackPanel>
           </StackPanel>
           

@@ -14,6 +14,7 @@ namespace WeatherApp.UI.ViewModels
         {
             _getWeatherUseCase = getWeatherUseCase;
             GetWeatherCommand = new AsyncRelayCommand(ExecuteGetWeatherAsync);
+            ToggleThemeCommand = new RelayCommand(ExecuteToggleTheme);
         }
 
         [ObservableProperty]
@@ -37,7 +38,17 @@ namespace WeatherApp.UI.ViewModels
         [ObservableProperty]
         private string errorMessage = string.Empty;
 
+        [ObservableProperty]
+        private bool isDarkMode = false;
+
         public IAsyncRelayCommand GetWeatherCommand { get; }
+        public IRelayCommand ToggleThemeCommand { get; }
+
+        private void ExecuteToggleTheme()
+        {
+            IsDarkMode = !IsDarkMode;
+            // The actual theme switching logic will be handled by the View (code-behind or binding)
+        }
 
         private async Task ExecuteGetWeatherAsync(CancellationToken ct = default)
         {

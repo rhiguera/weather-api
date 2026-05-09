@@ -26,7 +26,21 @@ namespace WeatherApp.UI
         public MainWindow(ViewModels.MainWindowViewModel viewModel) : this()
         {
             DataContext = viewModel;
-            Console.WriteLine($"MainWindow: DI constructor called. DataContext={(DataContext!=null?DataContext.GetType().FullName:"null")}");
+            
+            // Handle Theme Switching
+            viewModel.PropertyChanged += (s, e) => 
+            {
+                if (e.PropertyName == nameof(viewModel.IsDarkMode))
+                {
+                    var app = Avalonia.Application.Current;
+                    if (app != null)
+                    {
+                        app.RequestedThemeVariant = viewModel.IsDarkMode 
+                            ? Avalonia.Styling.ThemeVariant.Dark 
+                            : Avalonia.Styling.ThemeVariant.Light;
+                    }
+                }
+            };
         }
 
         private void InitializeComponent()
