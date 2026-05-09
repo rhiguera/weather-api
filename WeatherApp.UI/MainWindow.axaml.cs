@@ -15,8 +15,11 @@ namespace WeatherApp.UI
 #if DEBUG
             this.AttachDevTools();
 #endif
-            Console.WriteLine("MainWindow: parameterless constructor called");
-            this.Opened += (_, __) => Console.WriteLine($"MainWindow Opened. ContentType={this.Content?.GetType().FullName}");
+            this.Opened += (s, e) => 
+            {
+                var textBox = this.FindControl<TextBox>("CityTextBox");
+                textBox?.Focus();
+            };
         }
 
         // Constructor used by DI to inject the ViewModel

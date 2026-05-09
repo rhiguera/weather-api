@@ -18,7 +18,7 @@
     
     <!-- Input Row -->
     <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="8" Margin="0,0,0,8">
-      <TextBox Width="250" Watermark="Enter city name" 
+      <TextBox x:Name="CityTextBox" Width="250" Watermark="Enter city name" 
                Text="{Binding City, Mode=TwoWay}" 
                IsEnabled="{Binding GetWeatherCommand.IsRunning, Converter={StaticResource InverseBool}}"
                Foreground="Black" 
@@ -29,6 +29,7 @@
       
       <Button Width="120" Content="Get Weather" 
               Command="{Binding GetWeatherCommand}" 
+              IsDefault="True"
               IsEnabled="{Binding GetWeatherCommand.IsRunning, Converter={StaticResource InverseBool}}"
               Foreground="White" 
               Background="#0078d4" 
