@@ -1,28 +1,45 @@
 # WeatherApp — Avalonia Desktop (Linux) — Weather client
 
-Lightweight, multiplatform desktop client built with Avalonia UI and organized using Clean Architecture + MVVM.
+Lightweight, multiplatform desktop client built with Avalonia UI and organized using **Clean Architecture + MVVM**.
 
-## Objetivo
-- Aplicación de escritorio para Linux que consume una API del tiempo (OpenWeatherMap u otro).
-- Arquitectura: Clean Architecture + MVVM.
+## Objective
+- Multi-platform desktop application (optimized for Linux) that consumes the OpenWeatherMap API.
+- Demonstrates engineering best practices: Dependency Injection, Resilience Patterns, and Automated Testing.
 
-## Arquitectura del Sistema
+## Features
+- 🌦️ **Real-time Weather**: Get current temperature, description, humidity, and wind speed.
+- 🖼️ **Visual Icons**: Dynamic weather icons fetched directly from the API.
+- 🌓 **Dark Mode**: Toggle between Light and Dark themes with a single click.
+- ⚡ **Optimized UX**: Auto-focus on input, support for the **Enter** key, and loading indicators.
+- 🛡️ **Resilience**: Integrated retry policies with exponential backoff and timeout handling using **Polly**.
+- 🧪 **Fully Tested**: Unit and Infrastructure tests using xUnit, Moq, and MockHttp.
 
-### Capas y Responsabilidades
+## System Architecture
 
+### Layers & Responsibilities
+
+```mermaid
+graph TD
+    UI[UI Layer - Avalonia] --> App[Application Layer - Use Cases]
+    App --> Domain[Domain Layer - Entities & Interfaces]
+    Infra[Infrastructure Layer - External Deps] --> Domain
+    UI -.-> Infra
+```
+
+#### Detailed Diagram
 ```
 ┌─────────────────────────────────────────────┐
 │          UI Layer (Avalonia)                │
 │  ┌──────────────────────────────────────┐   │
-│  │ MainWindow.xaml (View)               │   │
-│  │ - Grid layout                        │   │
-│  │ - Data bindings to ViewModel         │   │
+│  │ Views (MainWindow.axaml)              │   │
+│  │ - Dynamic Layout (Grid/Cards)        │   │
+│  │ - Data bindings & Converters         │   │
+│  │ - Dark/Light Theme Switching         │   │
 │  └──────────────────────────────────────┘   │
 │  ┌──────────────────────────────────────┐   │
-│  │ MainWindowViewModel                  │   │
-│  │ - INotifyPropertyChanged (MVVM Tk)   │   │
-│  │ - Commands: GetWeatherCommand        │   │
-│  │ - Properties: City, Temperature, etc │   │
+│  │ ViewModels (MainWindowViewModel)     │   │
+│  │ - Commands: GetWeather, ToggleTheme  │   │
+│  │ - Properties: Humidity, Wind, Icon   │   │
 │  └──────────────────────────────────────┘   │
 └─────────────────────────────────────────────┘
            ↓ (Dependency Injection)
@@ -30,235 +47,101 @@ Lightweight, multiplatform desktop client built with Avalonia UI and organized u
 │      Application Layer (Use Cases)          │
 │  ┌──────────────────────────────────────┐   │
 │  │ GetWeatherUseCase                    │   │
-│  │ - Orchestrates business logic        │   │
-│  │ - Calls IWeatherService             │   │
+│  │ - Orchestrates logic & error mapping │   │
 │  │ - Returns GetWeatherResponse        │   │
 │  └──────────────────────────────────────┘   │
 └─────────────────────────────────────────────┘
            ↓ (Interface: IWeatherService)
 ┌─────────────────────────────────────────────┐
-│      Domain Layer (Business Rules)          │
+│      Domain Layer (Core Rules)              │
 │  ┌──────────────────────────────────────┐   │
 │  │ Entities:                            │   │
-│  │ - Weather (city, temp, description)  │   │
-│  │ - Location (future)                  │   │
+│  │ - Weather (City, Temp, Wind, Icon)   │   │
 │  └──────────────────────────────────────┘   │
 │  ┌──────────────────────────────────────┐   │
 │  │ Interfaces:                          │   │
-│  │ - IWeatherService (contract)         │   │
+│  │ - IWeatherService (Contract)         │   │
 │  └──────────────────────────────────────┘   │
 └─────────────────────────────────────────────┘
-           ↓ (Dependency Injection)
+           ↑ (Implementation)
 ┌─────────────────────────────────────────────┐
 │    Infrastructure Layer (External Deps)    │
 │  ┌──────────────────────────────────────┐   │
 │  │ OpenWeatherMapService                │   │
-│  │ - HttpClient (Polly resilience)      │   │
-│  │ - Retry policy (exponential backoff) │   │
-│  │ - Timeout handling (15s)             │   │
+│  │ - HttpClient (Polly: Retries/500s)   │   │
+│  │ - 404 Optimized Handling             │   │
 │  └──────────────────────────────────────┘   │
 │  ┌──────────────────────────────────────┐   │
-│  │ WeatherServiceStub (development)     │   │
-│  │ - Mock data for testing (no network) │   │
-│  └──────────────────────────────────────┘   │
-│  ┌──────────────────────────────────────┐   │
-│  │ DTOs & Converters                    │   │
+│  │ DTOs & Mappers                       │   │
 │  │ - OpenWeatherMapWeatherDto           │   │
 │  └──────────────────────────────────────┘   │
 └─────────────────────────────────────────────┘
-           ↓ (HTTP)
-   ┌──────────────────────┐
-   │ OpenWeatherMap API   │
-   │ https://api.open...  │
-   │ /data/2.5/weather?q=│
-   └──────────────────────┘
 ```
 
-### Estructura de Proyectos
+### Project Structure
 
 ```
 WeatherApp.sln
 ├── WeatherApp.UI (Avalonia Desktop)
-│   ├── App.axaml / App.axaml.cs
-│   ├── MainWindow.axaml / MainWindow.axaml.cs
-│   ├── Program.cs (entry point)
-│   ├── ViewModels/
-│   │   └── MainWindowViewModel.cs
-│   └── Converters/
-│       └── InverseBooleanConverter.cs
+│   ├── ViewModels/          # Presentation logic
+│   ├── Converters/          # Image & InverseBool converters
+│   ├── App.axaml            # Global styles & themes
+│   └── MainWindow.axaml     # Main view layout
 │
 ├── WeatherApp.Application (Use Cases)
-│   └── UseCases/GetWeather/
-│       ├── IGetWeatherUseCase.cs
-│       ├── GetWeatherUseCase.cs
-│       ├── GetWeatherRequest.cs
-│       └── GetWeatherResponse.cs
+│   └── UseCases/GetWeather/ # Business workflows
 │
-├── WeatherApp.Domain (Business Logic & Entities)
-│   ├── Entities/
-│   │   ├── Weather.cs
-│   │   └── Location.cs (future)
-│   └── Interfaces/
-│       └── IWeatherService.cs
+├── WeatherApp.Domain (Core)
+│   ├── Entities/            # Pure POCO entities
+│   └── Interfaces/          # Service contracts
 │
-├── WeatherApp.Infrastructure (External Dependencies)
-│   ├── Services/
-│   │   ├── OpenWeatherMapService.cs (real API)
-│   │   └── WeatherServiceStub.cs (mock)
-│   ├── Dto/
-│   │   └── OpenWeatherMapWeatherDto.cs
-│   └── DependencyInjection/
-│       └── ServiceCollectionExtensions.cs
+├── WeatherApp.Infrastructure (External)
+│   ├── Services/            # HTTP Clients & Stubs
+│   └── DependencyInjection/ # DI Registration logic
 │
-└── WeatherApp.Tests (xUnit)
+└── WeatherApp.Tests (Testing)
     ├── GetWeatherUseCaseTests.cs
-    ├── MainWindowViewModelTests.cs
-    └── GlobalUsings.cs
+    ├── OpenWeatherMapServiceTests.cs  # Infra mocking
+    └── MainWindowViewModelTests.cs    # UI logic tests
 ```
 
-### Flujo de Datos (Get Weather)
+## Resilience & Error Handling
+The application uses **Polly** to handle network instability:
+- **Exponential Backoff:** Retries up to 3 times with increasing delays.
+- **Server Error Handling:** Automatically retries on 500+ status codes.
+- **Optimized 404s:** Specifically detects "City Not Found" and returns a clean result without unnecessary retries.
+- **Timeouts:** 15-second global timeout for API requests.
 
-```
-1. User enters city name in TextBox
-   ↓
-2. Presses Button or Enter
-   ↓
-3. MainWindowViewModel.GetWeatherCommand executes
-   ↓
-4. Calls GetWeatherUseCase.HandleAsync(request, cancellationToken)
-   ↓
-5. UseCase depends on IWeatherService (injected)
-   ↓
-6a. IF ENV OPENWEATHER_API_KEY set:
-    → OpenWeatherMapService (real HTTP call)
-    → Polly retries + timeout handling
-    → JSON deserialization (DTO → Entity)
-   
-6b. ELSE:
-    → WeatherServiceStub (mock data)
-    → Hardcoded: London, Madrid, Sydney
-   ↓
-7. Response (Success or Error) returned to ViewModel
-   ↓
-8. ViewModel updates properties
-   ↓
-9. UI bindings refresh automatically
-   ↓
-10. Temperature, Description, or ErrorMessage displayed
-```
+## Setup & Execution
 
-### Configuración de Inyección de Dependencias
-
-En `App.axaml.cs` se configura via `ServiceCollectionExtensions.AddInfrastructure()`:
-
-```csharp
-if (!string.IsNullOrWhiteSpace(apiKey)) {
-    // Real API client with HttpClient + Polly
-    services.AddHttpClient<IWeatherService, OpenWeatherMapService>(...)
-} else {
-    // Stub for development
-    services.AddSingleton<IWeatherService, WeatherServiceStub>();
-}
-```
-
-## Estructura de la solución
-- `WeatherApp.sln`
-  - `WeatherApp.UI` (Avalonia views & viewmodels)
-  - `WeatherApp.Application` (casos de uso)
-  - `WeatherApp.Domain` (entidades e interfaces)
-  - `WeatherApp.Infrastructure` (clientes HTTP, adaptadores)
-  - `WeatherApp.Tests` (xUnit)
-
-## Cómo usar (desarrollo)
-1. Restaurar y compilar:
-
-```bash
-dotnet restore
-dotnet build
-```
-
-2. Ejecutar la UI (Linux):
-
-```bash
-dotnet run --project WeatherApp.UI
-```
-
-## Tests
-- Framework: `xUnit`.
-- Se añaden tests de unidades en `WeatherApp.Tests` para los casos de uso y ViewModels.
-
-## Guía de Ejecución
-
-### Requisitos Previos
+### Prerequisites
 - .NET 8 SDK
-- Sesión gráfica (X11/Wayland) para la UI en Linux
+- A graphical session (X11/Wayland) for Linux.
 
-### Opción 1: Ejecución con Stub (por defecto - sin API key)
-
-El stub contiene ciudades de ejemplo: `London`, `Madrid`, `Sydney`
-
+### Run with Real API (OpenWeatherMap)
+1. Get a free API key at [openweathermap.org](https://openweathermap.org/api).
+2. Use the provided helper script:
 ```bash
-dotnet build
-dotnet run --project WeatherApp.UI
-```
-
-### Opción 2: Ejecución con API Real de OpenWeatherMap
-
-**Paso 1:** Obtén una API key gratuita en https://openweathermap.org/api (Free tier - Current weather)
-
-**Paso 2a (Recomendado):** Usa el script helper
-```bash
+chmod +x run-with-api.sh
 ./run-with-api.sh YOUR_API_KEY_HERE
 ```
 
-**Paso 2b (Manual):** Configura variable de entorno
+### Run with Mock Data (Stub)
+If no API key is provided, the app uses `WeatherServiceStub` with sample data for `London`, `Madrid`, and `Sydney`.
 ```bash
-export OPENWEATHER_API_KEY="your_api_key_here"
-dotnet build
 dotnet run --project WeatherApp.UI
 ```
 
-### Debugging
-
-Para ver logs detallados de Avalonia (útil para diagnosticar problemas de renderización):
-```bash
-AVALONIA_LOG_LEVEL=debug dotnet run --project WeatherApp.UI
-```
-
-## Características de Resilencia
-
-El cliente OpenWeatherMap está configurado con políticas Polly:
-- **Retries:** hasta 3 intentos con backoff exponencial
-- **Timeout:** 15 segundos por solicitud
-- **Manejo de errores:** mensajes amigables en UI
-
-Errores de red y timeouts se muestran como mensajes de error legibles para el usuario.
-```
-```
-
-Run tests:
-
+## Testing
+The project maintains a high test coverage for core and infrastructure logic.
 ```bash
 dotnet test
 ```
 
-Troubleshooting:
-- If the window appears blank, verify you're running in a desktop graphical session (not a headless SSH without X11/Wayland). Use `AVALONIA_LOG_LEVEL=debug` to capture runtime logs.
-- Already tracked build artifacts were removed and `.gitignore` updated. To remove other tracked artifacts if present:
+## Contributing / Next Steps
+1. ✅ **Implemented**: Dark Mode, Extended Weather Data, UI Polish.
+2. 🚀 **Next**: Linux Packaging (AppImage/Flatpak).
+3. 📍 **Planned**: Multi-city comparison and 5-day forecast.
 
-```bash
-git rm -r --cached **/bin **/obj || true
-git commit -m "chore: remove build artifacts from index"
-```
-
-
-## Estrategia incremental y commits
-- Pequeños commits por responsabilidad (ver `untitled:plan-weatherAppPlan.prompt.md`).
-- Mensajes sugeridos: `feat:`, `fix:`, `test:` siguiendo Conventional Commits.
-
-## Siguientes pasos
-1. Implementar cliente HTTP stub (hecho).
-2. Añadir tests para `GetWeatherUseCase`.
-3. Conectar ViewModel a use case y mostrar datos en UI.
-4. Reemplazar stub por implementación real con `HttpClient` y `Polly`.
-5. Mejoras UX implementadas: indicador de carga, deshabilitar controles durante peticiones, Enter para enviar.
+---
+Built with ❤️ using .NET 8 and Avalonia UI.
