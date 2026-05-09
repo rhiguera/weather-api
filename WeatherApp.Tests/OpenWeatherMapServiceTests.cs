@@ -53,6 +53,25 @@ namespace WeatherApp.Tests
         }
 
         [Fact]
+        public async Task GetWeatherByCityAsync_ReturnsNull_OnNotFound()
+        {
+            // Arrange
+            var mockHttp = new MockHttpMessageHandler();
+            mockHttp.When($"{BaseUrl}/data/2.5/weather*")
+                .Respond(HttpStatusCode.NotFound);
+
+            var client = mockHttp.ToHttpClient();
+            client.BaseAddress = new Uri(BaseUrl);
+            var service = new OpenWeatherMapService(client, ApiKey);
+
+            // Act
+            var result = await service.GetWeatherByCityAsync("NonExistentCity");
+
+            // Assert
+            Assert.Null(result);
+        }
+
+        [Fact]
         public async Task GetWeatherByCityAsync_Throws_OnApiError()
         {
             // Arrange

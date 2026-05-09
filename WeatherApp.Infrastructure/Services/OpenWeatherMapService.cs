@@ -14,7 +14,7 @@ namespace WeatherApp.Infrastructure.Services
     {
         private readonly HttpClient _httpClient;
         private readonly string _apiKey;
-        private readonly Polly.Retry.AsyncRetryPolicy _retryPolicy;
+        private readonly Polly.Retry.AsyncRetryPolicy<HttpResponseMessage> _retryPolicy;
 
         public OpenWeatherMapService(HttpClient httpClient, string apiKey)
         {
@@ -22,6 +22,7 @@ namespace WeatherApp.Infrastructure.Services
             _apiKey = apiKey ?? throw new ArgumentNullException(nameof(apiKey));
             _retryPolicy = Polly.Policy
                 .Handle<HttpRequestException>()
+                .OrResult<HttpResponseMessage>(r => (int)r.StatusCode >= 500)
                 .WaitAndRetryAsync(3, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)));
         }
 
@@ -33,7 +34,16 @@ namespace WeatherApp.Infrastructure.Services
 
             try
             {
-                var dto = await _retryPolicy.ExecuteAsync(() => _httpClient.GetFromJsonAsync<OpenWeatherMapWeatherDto>(url, cancellationToken)).ConfigureAwait(false);
+                var response = await _retryPolicy.ExecuteAsync(() => _httpClient.GetAsync(url, cancellationToken)).ConfigureAwait(false);
+                
+                if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
+                {
+                    return null;
+                }
+
+                response.EnsureSuccessStatusCode();
+
+                var dto = await response.Content.ReadFromJsonAsync<OpenWeatherMapWeatherDto>(cancellationToken: cancellationToken).ConfigureAwait(false);
                 if (dto is null) return null;
 
                 var weatherEntry = dto.Weather.Length > 0 ? dto.Weather[0] : new WeatherEntryDto();
@@ -45,12 +55,7 @@ namespace WeatherApp.Infrastructure.Services
                     dto.Wind.Speed,
                     weatherEntry.Icon);
             }
-            catch (OperationCanceledException)
-            {
-                // includes timeout
-                throw;
-            }
-            catch (Exception)
+            catch (HttpRequestException)
             {
                 // bubble up to be handled by use case
                 throw;
